@@ -1,17 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+ 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>unique</title>
-<link type="text/css" href="css/css.css" rel="stylesheet" />
+<link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/js.js"></script>
 </head>
 
 <body>
  <div class="hrader" id="header">
-  <a href="login.html" style="color:#FD7306;margin-left:20px;">请登录</a> 
-  <a href="reg.html">注册</a>
+  <a href="login.jsp" style="color:#FD7306;margin-left:20px;">请登录</a> 
+  <a href="${contextPath}/req">注册</a>
   <div class="topNav">
    <a href="index.html" style="color:#FD7306;">首页</a>
    <a href="buy.html">买家</a>
@@ -27,11 +32,11 @@
  </div><!--hrader/-->
  <div class="mainCont">
   <h1 class="logo" style="text-align:left;">
-  <a href="index.html"><img src="images/logo.png" width="304" height="74" /></a>
+  <a href="index.html"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a>
   </h1>
   <div class="loginBox">
    <div class="loginLeft">
-    <img src="images/login.jpg" width="567" height="348" />
+    <img src="${contextPath}/assets/images/login.jpg" width="567" height="348" />
    </div><!--loginLeft/-->
    <div class="loginRight">
     <form class="login" action="#" method="get">
@@ -46,7 +51,7 @@
       <input type="submit" value=" 登 录 " />
      </div><!--loginSub/-->
      <h2>合作伙伴登录：</h2>
-     <img src="images/hezuo.jpg" width="260" height="30" />
+     <img src="${contextPath}/assets/images/hezuo.jpg" width="260" height="30" />
     </form><!--login/-->
    </div><!--loginRight/-->
    <div class="clears"></div>
@@ -55,7 +60,7 @@
  <div class="footBox">
   <div class="footers">
    <div class="footersLeft">
-    <a href="index.html"><img src="images/ftlogo.jpg" width="240" height="64" /></a>
+    <a href="index.html"><img src="${contextPath}/assets/images/ftlogo.jpg" width="240" height="64" /></a>
     <h3 class="ftphone">400 000 0000 </h3>
     <div class="ftKe">
      客服 7x24小时(全年无休)<br />

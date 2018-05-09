@@ -21,7 +21,7 @@ uniquezi number(2) not null
 public class User {
 private long id;
 @Size(min = 6, max = 64, message = "6 ~ 64长度")
-private String uname;
+private String username;
 @NotNull(message = "必填")
 @Email(regexp="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",message="邮箱号不符合规则")
 private String email;
@@ -47,11 +47,11 @@ public long getId() {
 public void setId(long id) {
 	this.id = id;
 }
-public String getUname() {
-	return uname;
+public String getUsername() {
+	return username;
 }
-public void setUname(String uname) {
-	this.uname = uname;
+public void setUsername(String username) {
+	this.username = username;
 }
 public String getEmail() {
 	return email;
@@ -85,8 +85,12 @@ public void setUniquezi(int uniquezi) {
 }
 @Override
 public String toString() {
-	return "User [id=" + id + ", uname=" + uname + ", email=" + email + ", phone=" + phone + ", password=" + password
+	return "User [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password=" + password
 			+ ", verification=" + verification + ", uniquezi=" + uniquezi + "]";
+}
+public String getRole() {
+	// TODO Auto-generated method stub
+	return null;
 }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hwua.entity.User;
 import com.hwua.service.ShoopService;
@@ -28,20 +29,25 @@ public class ShoopController {
 	}
 	@RequestMapping(method = RequestMethod.POST,value="/req")
 	public String registered(@Valid @ModelAttribute User user,BindingResult bindingResult){
+		
 		if (bindingResult.hasErrors()) {
 			return "req";
-		}else{
+		}
+		
+		else{
 		 shoopService.registered(user);
 			  return "login";
 		}
-		
-	  
 		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String login(){
-		
-		return "login";
+	  		return "login";
 	}
+	@RequestMapping(method = RequestMethod.GET, value = "/index")
+	public String look(){
+	  		return "index";
+	}
+	
 }

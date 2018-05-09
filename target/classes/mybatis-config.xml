@@ -10,6 +10,6 @@
 	
 	<typeAliases>
 <!-- 		这样一来在mapper.xml中可以使用实体类的简单类名 -->
-  		<package name="ssm.entity"/>
+  		<package name="com.hwua.entity"/>
 	</typeAliases>
 </configuration>

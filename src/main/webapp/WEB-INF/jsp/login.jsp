@@ -9,8 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>unique</title>
 <link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="${contextPath}/assets/js/jquery.js"></script>
+<script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
 </head>
 
 <body>
@@ -38,12 +38,16 @@
    <div class="loginLeft">
     <img src="${contextPath}/assets/images/login.jpg" width="567" height="348" />
    </div><!--loginLeft/-->
+   <c:if test="${param.error != null}">
+ 		<h4 style="color: red;">登录失败：用户名或密码错误</h4>
+ 	</c:if>
    <div class="loginRight">
-    <form class="login" action="#" method="get">
+    <form class="login" action="" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
      <label>邮箱/用户名/已验证手机</label>
-     <input type="text" class="loginName" />
+     <input type="text" class="loginName" name="username"/>
      <label>密码</label>
-     <input type="password" class="loginPwd" />
+     <input type="password" class="loginPwd" name="password"/>
      <div class="jizhu">
       <input type="checkbox" /> 一周内免登陆 <a href="#">忘记密码</a>
      </div><!--jizhu/-->
@@ -53,6 +57,7 @@
      <h2>合作伙伴登录：</h2>
      <img src="${contextPath}/assets/images/hezuo.jpg" width="260" height="30" />
     </form><!--login/-->
+    
    </div><!--loginRight/-->
    <div class="clears"></div>
   </div><!--loginBox/-->

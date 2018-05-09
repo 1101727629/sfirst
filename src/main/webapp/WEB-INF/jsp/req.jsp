@@ -11,6 +11,25 @@
 <link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="${contextPath}/assets/js/jquery.js"></script>
 <script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
+<script>
+function validate() {
+    
+    var pwd = $("#password").val();
+    var pwd1 = $("#pwd1").val();
+
+    if(pwd == pwd1)
+     {
+        $("#tishi").html("两次密码相同");
+         $("#tishi").css("color","green");
+    $("#xiugai").removeAttr("disabled");
+     }
+else {
+        $("#tishi").html("两次密码不相同");
+         $("#tishi").css("color","red")
+          $("button").attr("disabled","disabled");   
+      }
+}
+</script>
 </head>
 
 <body>
@@ -41,11 +60,12 @@
     <li class="regEqBg2">采购商</li>
     <div class="clears"></div>
    </ul><!--regEq/-->
+   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
    <form:form  action="" method="post" commandName="user" class="regForm" >
     <div class="loginBuyList">
-     <label for="uname">用户名：</label>
-     <form:input type="text" path="uname" />
-     <form:errors path="uname" ></form:errors>
+     <label for="username">用户名：</label>
+     <form:input type="text" path="username" />
+     <form:errors path="username" ></form:errors>
     </div><!--loginBuyList/-->
     <div class="loginBuyList">
      <label for="email">邮箱：</label>
@@ -60,11 +80,11 @@
     </div><!--loginBuyList/-->
     <div class="loginBuyList">
      <label for="pwassword">设置密码：</label>
-     <form:input type="text" path="password"/>
+     <form:input type="text" path="password" id="password"/>
     </div><!--loginBuyList/-->
     <div class="loginBuyList" style="border:#DEDEDE 1px solid;">
      <label for="pwd1">确认密码：</label>
-     <form:input type="text" path="pwd1"/>
+     <form:input type="text" path="pwd1" id="pwd1"/>
     </div><!--loginBuyList/-->
     
     <div class="loginBuyyan">

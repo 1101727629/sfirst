@@ -20,7 +20,7 @@ import com.hwua.service.UserService;
 		public UserServiceImpl(UserDao userDao) {
 			this.userDao = userDao;
 		}
-
+		@Override
 		public UserDetails loadUserByUsername(String username)
 				throws UsernameNotFoundException {
 			User user = userDao.findOneByUsername(username);
@@ -34,7 +34,7 @@ import com.hwua.service.UserService;
 
 	class UserDetailsImpl extends org.springframework.security.core.userdetails.User {
 		private User user;
-
+	
 		public UserDetailsImpl(User user) {
 			super(user.getUsername(), user.getPassword(), 
 					Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole())));

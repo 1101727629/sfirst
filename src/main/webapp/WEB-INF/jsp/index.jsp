@@ -15,13 +15,13 @@
 
 <body>
  <div class="hrader">
-  <a href="login.html" style="color:#FD7306;margin-left:20px;">请登录</a> 
-  <a href="reg.html">注册</a>
+  <a href="${contextPath}/login" style="color:#FD7306;margin-left:20px;">请登录</a> 
+  <a href="${contextPath}/reg">注册</a>
   <div class="topNav">
    <a href="index.html" style="color:#FD7306;">首页</a>
    <a href="buy.html">买家</a>
    <a href="sell.html">卖家</a>
-   <a href="vip.html">会员中心</a>
+   <a href="${contextPath}/vip">会员中心</a>
    <a href="xuanshang.html">悬赏榜</a>
    <a href="luntan.html" class="luntan">论坛</a>
    <a href="help.html">帮助</a>
@@ -31,7 +31,7 @@
   </div><!--topNav/-->
  </div><!--hrader/-->
  <div class="inCont">
-  <h1 class="logo"><a href="index.jsp"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a></h1>
+  <h1 class="logo"><a href="${contextPath}/index.jsp"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a></h1>
   <form class="select" action="prolist.html" method="get">
    <div>
     <input type="text" value="请输入你需要的产品" class="selName" onFocus=OnEnter(this) onBlur=OnExit(this) />
@@ -39,7 +39,7 @@
    </div>
   </form><!--select/-->
   <div class="ban">
-   <a href="prolist.html"><img src="images/phone.png" /></a>
+   <a href="prolist.html"><img src="${contextPath}/assets/images/phone.png" /></a>
   </div><!--ban/-->
  </div><!--inCont/-->
  <div class="footer">

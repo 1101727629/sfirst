@@ -16,8 +16,8 @@
 <body>
  <div class="hrader" id="header">
   <div class="top">
-   <a href="/login" style="color:#C94E13;">请登录</a> 
-   <a href="/reg">注册</a>
+   <a href="${contextPath}/login" style="color:#C94E13;">请登录</a> 
+   <a href="${contextPath}/reg">注册</a>
    <ul class="topNav">
     <li><a href="order.html">我的订单 </a></li>
     <li class="gouwuche"><a href="car.html">购物车</a> <strong style="color:#C94E13;">3</strong></li>
@@ -31,7 +31,7 @@
  </div><!--hrader/-->
  <div class="mid">
   <h1 class="logo" style="text-align:left;">
-  <a href="index.html"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a>
+  <a href="${contextPath}/index"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a>
   </h1>
   <form action="#" method="get" class="subBox">
    <div class="subBox2">
@@ -61,7 +61,7 @@
    <li><a href="index.html">首页</a></li>
    <li><a href="buy.html">买家</a></li>
    <li><a href="sell.html">卖家</a></li>
-   <li class="navCur"><a href="vip.html">会员中心</a></li>
+   <li class="navCur"><a href="/vip">会员中心</a></li>
    <li><a href="xuanshang.html">悬赏榜</a></li>
    <li><a href="luntan.html" class="luntan">论坛</a></li>
    <li><a href="help.html">帮助</a></li>
@@ -85,35 +85,37 @@
   
   <div class="vipRight">
    <h2 class="vipTitle">发布产品</h2>
-   <form action="" method="post" enctype="multipart/form-data" class="vip-pro">
+   <form action="" method="post" class="vip-pro"  enctype="multipart/form-data">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+   ${erro}
    <table>
     <tr>
      <th>信息标题</th>
-     <td><input type="text" /></td>
+     <td><input type="text" name="title"/></td>
     </tr>
     <tr>
      <th>手机图片</th>
-     <td><input type="file" /></td>
+     <td><input type="file" name="picture"/></td>
     </tr>
     <tr>
      <th>手机分类</th>
      <td>
-      <select>
-       <option>智能机</option>
-       <option>功能机</option>
-       <option>老人机</option>
-       <option>拖拉机</option>
+      <select name="phone_name">
+        <option value="智能机">智能机</option>
+       <option value="功能机">功能机</option>
+       <option value="老人机">老人机</option>
+       <option value="拖拉机">拖拉机</option>
       </select>
      </td>
     </tr>
     <tr>
      <th>价格</th>
-     <td><input type="text" /></td>
+     <td><input type="text" name="price"/></td>
     </tr>
     <tr>
      <th>产品介绍</th>
      <td>
-      <textarea>
+      <textarea name="introduce">
       
       </textarea>
      </td>
@@ -124,6 +126,7 @@
     <input type="reset" value="取消" />
    </div><!--ti-qu/-->
    </form>
+
   </div><!--vipRight/-->
   
   <div class="clears"></div>

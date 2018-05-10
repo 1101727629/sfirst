@@ -7,17 +7,6 @@ import javax.validation.constraints.Size;
 
 
 
-
-
-/*create table reg(
-id number(11) primary key,
-uname varchar2(64) unique,
-email varchar2(64),
-phone varchar2(20),
-password varchar2(64),
-verification varchar2(64),
-uniquezi number(2) not null 
-);*/
 public class User {
 private long id;
 @Size(min = 6, max = 64, message = "6 ~ 64长度")
@@ -34,7 +23,49 @@ private String pwd1;
 private String verification;
 private int uniquezi;
 
+private String name;
+private String city;
+private String sex;
+private String idcard;
+private String sysopsis;
+private String category;
 
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getSex() {
+	return sex;
+}
+public void setSex(String sex) {
+	this.sex = sex;
+}
+public String getIdcard() {
+	return idcard;
+}
+public void setIdcard(String idcard) {
+	this.idcard = idcard;
+}
+public String getSysopsis() {
+	return sysopsis;
+}
+public void setSysopsis(String sysopsis) {
+	this.sysopsis = sysopsis;
+}
+public String getCategory() {
+	return category;
+}
+public void setCategory(String category) {
+	this.category = category;
+}
 public String getPwd1() {
 	return pwd1;
 }

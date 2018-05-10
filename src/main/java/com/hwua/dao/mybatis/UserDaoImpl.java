@@ -13,7 +13,7 @@ public class UserDaoImpl implements UserDao {
 	public UserDaoImpl(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
-
+	@Override
 	public User findOneByUsername(String username) {
 		return userMapper.findOneByUsername(username);
 	}

@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>unique</title>
-<link type="text/css" href="css/css.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
+<link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
+<script type="text/javascript" src="${contextPath}/assets/js/jquery.js"></script>
+<script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
 </head>
 
 <body>
@@ -29,11 +31,11 @@
   </div><!--topNav/-->
  </div><!--hrader/-->
  <div class="inCont">
-  <h1 class="logo"><a href="index.html"><img src="images/logo.png" width="304" height="74" /></a></h1>
+  <h1 class="logo"><a href="index.jsp"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a></h1>
   <form class="select" action="prolist.html" method="get">
    <div>
     <input type="text" value="请输入你需要的产品" class="selName" onFocus=OnEnter(this) onBlur=OnExit(this) />
-    <input type="image" src="images/sub.png" width="99" height="36" class="sel" />
+    <input type="image" src="${contextPath}/assets/images/sub.png" width="99" height="36" class="sel" />
    </div>
   </form><!--select/-->
   <div class="ban">

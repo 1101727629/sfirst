@@ -4,6 +4,8 @@ package com.hwua.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,14 +28,14 @@ public class VipController {
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/vip")
 	public String vipview( @AuthenticationPrincipal(expression="user")User cususer,Model model){
-		
+		model.addAttribute("user",cususer);
 	  		return "vip";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/vip")
 	public String vipupdate( 
 			@AuthenticationPrincipal(expression="user")User user1,
-			@ModelAttribute User user, BindingResult bindingResult,
+			@Valid@ModelAttribute User user, BindingResult bindingResult,
 			Model model) throws IllegalStateException, IOException{
 		if (bindingResult.hasErrors()) {
 			System.err.println(bindingResult.getAllErrors());

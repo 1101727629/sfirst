@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hwua.entity.Product;
+import com.hwua.entity.User;
 import com.hwua.service.ShoopService;
 @Controller
 public class ProductController {
@@ -22,7 +24,8 @@ public class ProductController {
 		this.shoopService = shoopService;
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/vip/product")
-	public String productview(){
+	public String productview(@AuthenticationPrincipal(expression="user")User cususer,Model model){
+		model.addAttribute("user",cususer);
 	  		return "vip-product";
 	}
 

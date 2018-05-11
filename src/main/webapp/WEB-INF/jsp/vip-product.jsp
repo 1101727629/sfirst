@@ -11,7 +11,13 @@
 <link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="${contextPath}/assets/js/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
-
+<style type="text/css">
+		.vip-product {
+			width: 183px;
+			height: 169px;
+		}
+	</style>
+</head>
 </head>
 
 <body>
@@ -71,7 +77,18 @@
  </div><!--navBox/-->
  <div class="vipBox">
   <div class="vipLeft">
-   <h2 class="headImg"><img src="${contextPath}/assets/images/vipImg.jpg" width="183" height="169" /></h2>
+     <div>
+		照片: 
+			<c:choose>
+				<c:when test="${user.imgs != null}">
+					<img src="${contextPath}/vip/product/${user.imgs}" 
+				  		 class="vip-product">
+				</c:when>
+				<c:otherwise>
+               <h2 class="headImg"><img src="${contextPath}/assets/images/vipImg.jpg" width="183" height="169" /></h2>	</c:otherwise>
+			</c:choose>
+	  </div>
+   
    <h3 class="vipName">测试webqin</h3>
    <ul class="buy-nav">
     <li class="buy-nav1"><a href="vip-sell.html">卖家中心</a></li>

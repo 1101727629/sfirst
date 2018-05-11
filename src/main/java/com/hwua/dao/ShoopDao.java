@@ -11,4 +11,8 @@ void add(Product pro);
 
 void vipupdate(User user);
 
+void updatePwd(long id, String encodedPassword);
+
+
+
 }

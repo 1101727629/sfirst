@@ -45,6 +45,15 @@ public class ShoopServiceImpl implements ShoopService {
 	}
 
 
+	@Override
+	public void updatePwd(long id, String PassWord) {
+		String encodedPassword = passwordEncoder.encode(PassWord);
+		
+		shoopDao.updatePwd(id,encodedPassword);
+		
+	}
+
+
 
 
 

@@ -17,6 +17,14 @@ void vipupdate(User user);
 
 
 
+void updatePwd(long id, String PassWord);
+
+
+
+
+
+
+
 
 
 	

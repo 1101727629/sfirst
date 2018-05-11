@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,18 +12,19 @@
 <script type="text/javascript" src="${contextPath}/assets/js/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
 <style type="text/css">
-		.vip {
+		.vipPwd {
 			width: 183px;
 			height: 169px;
 		}
 	</style>
 </head>
+</head>
 
 <body>
  <div class="hrader" id="header">
   <div class="top">
-  <span><sec:authentication property="principal.user.username"/></span>
-   <a href="${contextPath}/reg">注册</a>
+   <a href="${contextPath}/assets/login" style="color:#C94E13;">请登录</a> 
+   <a href="${contextPath}/assets/reg">注册</a>
    <ul class="topNav">
     <li><a href="order.html">我的订单 </a></li>
     <li class="gouwuche"><a href="car.html">购物车</a> <strong style="color:#C94E13;">3</strong></li>
@@ -67,7 +68,7 @@
    <li><a href="index.html">首页</a></li>
    <li><a href="buy.html">买家</a></li>
    <li><a href="sell.html">卖家</a></li>
-   <li class="navCur"><a href="${contextPath}/vip">会员中心</a></li>
+   <li class="navCur"><a href="vip.html">会员中心</a></li>
    <li><a href="xuanshang.html">悬赏榜</a></li>
    <li><a href="luntan.html" class="luntan">论坛</a></li>
    <li><a href="help.html">帮助</a></li>
@@ -76,13 +77,12 @@
  </div><!--navBox/-->
  <div class="vipBox">
   <div class="vipLeft">
-  
-     <div>
+   <div>
 		照片: 
 			<c:choose>
 				<c:when test="${user.imgs != null}">
-					<img src="${contextPath}/vip/${user.imgs}" 
-				  		 class="vip">
+					<img src="${contextPath}/vipPwd/${user.imgs}" 
+				  		 class="vipPwd">
 				</c:when>
 				<c:otherwise>
 					 <h2 class="headImg"><img src="${contextPath}/assets/images/vipImg.jpg" width="183" height="169" /></h2>
@@ -95,8 +95,8 @@
      <dd><a href="vipOrder.html">我的订单</a></dd>
      <dd><a href="vipShoucang.html">收藏关注</a></dd>
     <dt class="vip_2">账户设置</dt>
-     <dd class="ddCur"><a href="#">个人信息</a></dd>
-     <dd><a href="${contextPath}/vipPwd">密码修改</a></dd>
+     <dd><a href="vip.html">个人信息</a></dd>
+     <dd class="ddCur"><a href="vipPwd.html">密码修改</a></dd>
      <dd><a href="vipAddress.html">收货地址</a></dd>
      <dd><a href="vipXiaofei.html">消费记录</a></dd>
     <dt class="vip_3">客户服务</dt>
@@ -106,76 +106,28 @@
    </dl><!--vipNav/-->
   </div><!--vipLeft/-->
   <div class="vipRight">
-   <h2 class="vipTitle">个人中心</h2>
+   <h2 class="vipTitle">密码修改</h2>
    
- <form action="${contextPath}/vip" class="registerform" method="post" enctype="multipart/form-data">
-       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-       
+   <form action="" method="post" class="registerform">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
+        ${erro1}
+       ${erro}
         <tr>
-          <td width="90"><span>*</span>真实姓名：</td>
-          <td width="430"><input name="name" type="text" class="text inputxt" value="${user.name}"/>
-          	
-          </td>
-          <td rowspan="8" valign="top"><div id="tx"><img src="${contextPath}/assets/images/vipImg.jpg" /></div>
-            <span class="file"><input name=picture type="file" class="file1" />上传图像</span></td>
+          <td width="90">新密码：</td>
+          <td width="430"><input type="text" class="text inputxt" name="PassWord" datatype="*6-16" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！" /></td>        
         </tr>
         <tr>
-          <td><span>*</span>所在城市：</td>
-          <td><select name="city"  >
-              <option>省</option>
-              <option>上海</option>
-            </select>
-            <select name="city"  >
-              <option>市</option>
-              <option>上海</option>
-            </select>
-            <select name="city" >
-              <option>区</option>
-              <option>宝山</option>
-            </select></td>
+          <td>确认密码：</td>
+          <td><input type="text" class="text inputxt"  name="PassWord1" datatype="*" recheck="password" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！"  /></td>
         </tr>
+        <!-- <tr>
+          <td>验证码：</td>
+          <td><input name="" type="text" class="text2" /></td>
+        </tr> -->
         <tr>
-          <td>&nbsp;性别：</td>
-          <td>
-          <c:if test="${user.sex eq null}">
-          <input type="radio" name="sex" value="男" id="person" class="pr1" datatype="*" nullmsg="请选择性别！" /> 男　
-            <input type="radio" name="sex" value="女" id="company" class="pr1"   /> 女
-          </c:if>
-          <c:if test="${user.sex eq'男'}">
-            <input type="radio" name="sex" value="男" id="person" class="pr1" datatype="*" nullmsg="请选择性别！" checked="checked" /> 男　
-            <input type="radio" name="sex" value="女" id="company" class="pr1"  /> 女
-          </c:if>
-          <c:if test="${user.sex eq'女'}">
-          <input type="radio" name="sex" value="男" id="person" class="pr1" datatype="*" nullmsg="请选择性别！" /> 男　
-            <input type="radio" name="sex" value="女" id="company" class="pr1" checked="checked"  /> 女
-          </c:if>
-          </td>
-        </tr>
-        <tr>
-          <td>&nbsp;EMAIL:</td>
-          <td><input type="text" class="text1" datatype="e" name="email" value="${user.email}"/>${user.email}</td>
-        </tr>
-        <tr>
-          <td>&nbsp;身份证:</td>
-          <td><input name="idcard" type="text"  value="${user.idcard}" class="text1 inputxt"   />${user.idcard}</td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;类别：</td>
-          <td>
-      <select name="category">
-        <option value="艺术家">艺术家</option>
-       <option value="企业家">企业家</option>
-      </select>
-     </td>
-        </tr>
-        <tr>
-          <td>&nbsp;个人简介：</td>
-          <td><textarea tip="请在这里输入您的简介。" altercss="gray" class="gray" name="sysopsis"  datatype="*" value="${user.sysopsis}">${user.sysopsis}</textarea></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td><input name="" value="保存资料" type="submit" class="submit" /></td>
+          <td><input name="" value="马上修改" type="submit" class="submit" /></td>
+          <td></td>
         </tr>
       </table>
       </form>

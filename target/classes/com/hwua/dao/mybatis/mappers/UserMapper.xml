@@ -7,4 +7,5 @@
   <select id="findOneByUsername" resultType="User">
 	select * from reg where username = #{username}
   </select>
+
 </mapper>

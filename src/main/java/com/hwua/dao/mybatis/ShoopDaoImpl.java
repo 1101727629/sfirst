@@ -29,5 +29,10 @@ public void add(Product pro) {
 	 productMapper.add(pro);
 	
 }
+@Override
+public void vipupdate(User user) {
+	shoopMapper.vipupdate(user);
+	
+}
 
 }

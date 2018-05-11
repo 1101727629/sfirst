@@ -3,6 +3,7 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,7 +16,7 @@
 
 <body>
  <div class="hrader">
-  <a href="${contextPath}/login" style="color:#FD7306;margin-left:20px;">请登录</a> 
+   <span><sec:authentication property="principal.user.username"/></span>
   <a href="${contextPath}/reg">注册</a>
   <div class="topNav">
    <a href="index.html" style="color:#FD7306;">首页</a>

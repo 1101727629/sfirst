@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
      <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,8 +17,8 @@
 <body>
  <div class="hrader" id="header">
   <div class="top">
-   <a href="/login" style="color:#C94E13;">请登录</a> 
-   <a href="/reg">注册</a>
+  <span><sec:authentication property="principal.user.username"/></span>
+   <a href="${contextPath}/reg">注册</a>
    <ul class="topNav">
     <li><a href="order.html">我的订单 </a></li>
     <li class="gouwuche"><a href="car.html">购物车</a> <strong style="color:#C94E13;">3</strong></li>
@@ -61,7 +62,7 @@
    <li><a href="index.html">首页</a></li>
    <li><a href="buy.html">买家</a></li>
    <li><a href="sell.html">卖家</a></li>
-   <li class="navCur"><a href="vip.html">会员中心</a></li>
+   <li class="navCur"><a href="${contextPath}/vip">会员中心</a></li>
    <li><a href="xuanshang.html">悬赏榜</a></li>
    <li><a href="luntan.html" class="luntan">论坛</a></li>
    <li><a href="help.html">帮助</a></li>
@@ -90,15 +91,17 @@
   <div class="vipRight">
    <h2 class="vipTitle">个人中心</h2>
    
- <form action="" class="registerform" method="post">
+ <form action="${contextPath}/vip" class="registerform" method="post" enctype="multipart/form-data">
        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
        
       <table class="grzx" width="705" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td width="90"><span>*</span>真实姓名：</td>
-          <td width="430"><input name="name" type="text" class="text inputxt" value="${user.name}"/></td>
+          <td width="430"><input name="name" type="text" class="text inputxt" value="${user.name}"/>
+          	
+          </td>
           <td rowspan="8" valign="top"><div id="tx"><img src="${contextPath}/assets/images/vipImg.jpg" /></div>
-            <span class="file"><input name="" type="file" class="file1" /></span></td>
+            <span class="file"><input name=picture type="file" class="file1" />上传图像</span></td>
         </tr>
         <tr>
           <td><span>*</span>所在城市：</td>
@@ -134,11 +137,11 @@
         </tr>
         <tr>
           <td>&nbsp;EMAIL:</td>
-          <td><input type="text" class="text1" datatype="e" name="email" value="${user.email}"/></td>
+          <td><input type="text" class="text1" datatype="e" name="email" value="${user.email}"/>${user.email}</td>
         </tr>
         <tr>
           <td>&nbsp;身份证:</td>
-          <td><input name="idcard" type="text"  value="${user.idcard}" class="text1 inputxt" datatype="idcard" nullmsg="请填写身份证号码！" errormsg="您填写的身份证号码不对！必须位数字且不低于18位" /></td>
+          <td><input name="idcard" type="text"  value="${user.idcard}" class="text1 inputxt"   />${user.idcard}</td>
         </tr>
         <tr>
           <td>&nbsp;&nbsp;类别：</td>

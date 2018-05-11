@@ -1,13 +1,17 @@
 package com.hwua.entity;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
 
 
-public class User {
+
+public class User implements Serializable  {
 private long id;
 @Size(min = 6, max = 64, message = "6 ~ 64长度")
 private String username;
@@ -22,14 +26,27 @@ private String pwd1;
 
 private String verification;
 private int uniquezi;
-
+@Size(min = 3, max = 64, message = "3~ 64长度")
 private String name;
 private String city;
 private String sex;
 private String idcard;
 private String sysopsis;
 private String category;
-
+private String imgs;
+private MultipartFile picture;
+public MultipartFile getPicture() {
+	return picture;
+}
+public void setPicture(MultipartFile picture) {
+	this.picture = picture;
+}
+public String getImgs() {
+	return imgs;
+}
+public void setImgs(String imgs) {
+	this.imgs = imgs;
+}
 public String getName() {
 	return name;
 }
@@ -116,8 +133,10 @@ public void setUniquezi(int uniquezi) {
 }
 @Override
 public String toString() {
-	return "User [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password=" + password
-			+ ", verification=" + verification + ", uniquezi=" + uniquezi + "]";
+	return "User [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password="
+			+ password + ", pwd1=" + pwd1 + ", verification=" + verification + ", uniquezi=" + uniquezi + ", name="
+			+ name + ", city=" + city + ", sex=" + sex + ", idcard=" + idcard + ", sysopsis=" + sysopsis + ", category="
+			+ category + ", imgs=" + imgs + "]";
 }
 public String getRole() {
 	// TODO Auto-generated method stub

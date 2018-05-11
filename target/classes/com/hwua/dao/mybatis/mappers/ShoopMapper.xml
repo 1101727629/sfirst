@@ -7,4 +7,9 @@
   	insert into reg(id, username, email, phone, password,verification) 
   	  values(reg_seq.nextval,#{username}, #{email}, #{phone}, #{password},#{verification})
   </insert>
+   <update id="vipupdate">
+ update reg 
+ set name=#{name},city=#{city},sex=#{sex},idcard=#{idcard},sysopsis=#{sysopsis},category=#{category},imgs=#{imgs}
+ where id=#{id}
+ </update>
 </mapper>

@@ -38,6 +38,13 @@ public class ShoopServiceImpl implements ShoopService {
 	}
 
 
+	@Override
+	public void vipupdate(User user) {
+		shoopDao.vipupdate(user);
+		
+	}
+
+
 
 
 

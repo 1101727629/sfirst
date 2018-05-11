@@ -9,4 +9,6 @@ void registered(User user);
 
 void add(Product pro);
 
+void vipupdate(User user);
+
 }

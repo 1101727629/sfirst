@@ -11,6 +11,14 @@ public interface ShoopService {
 
 void add(Product pro);
 
+
+
+void vipupdate(User user);
+
+
+
+
+
 	
 
 }

@@ -1,18 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+      <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>unique</title>
-<link type="text/css" href="css/css.css" rel="stylesheet" />
-<script type="text/javascript" src="js/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
-
+<link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
+<script type="text/javascript" src="${contextPath}/assets/js/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
+<style type="text/css">
+		.vipA{
+			width: 183px;
+			height: 169px;
+		}
+	</style>
+	<!-- 	把token放在meta中方便ajax获取 -->
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 
 <body>
  <div class="hrader" id="header">
   <div class="top">
-   <a href="login.html" style="color:#C94E13;">请登录</a> 
+ <span><sec:authentication property="principal.user.username"/></span>
    <a href="reg.html">注册</a>
    <ul class="topNav">
     <li><a href="order.html">我的订单 </a></li>
@@ -27,12 +41,12 @@
  </div><!--hrader/-->
  <div class="mid">
   <h1 class="logo" style="text-align:left;">
-  <a href="index.html"><img src="images/logo.png" width="304" height="74" /></a>
+  <a href="index.html"><img src="${contextPath}/assets/images/logo.png" width="304" height="74" /></a>
   </h1>
   <form action="#" method="get" class="subBox">
    <div class="subBox2">
     <input type="text" class="subText" />
-    <input type="image" src="images/sub.jpg" width="95" height="32" class="subImg" />
+    <input type="image" src="${contextPath}/assets/images/sub.jpg" width="95" height="32" class="subImg" />
     <div class="hotci">
     <a href="#">酷派大神</a>
     <a href="#">三星s5</a>
@@ -44,10 +58,10 @@
   </form><!--subBox/-->
   <div class="ding-gou">
    <div class="ding">
-    <a href="order.html"><img src="images/dingdan.jpg" width="106" height="32" /></a>
+    <a href="order.html"><img src="${contextPath}/assets/images/dingdan.jpg" width="106" height="32" /></a>
    </div><!--ding/-->
    <div class="gou">
-    <a href="car.html"><img src="images/gouwuche.jpg" width="126" height="32" /></a>
+    <a href="car.html"><img src="${contextPath}/assets/images/gouwuche.jpg" width="126" height="32" /></a>
    </div><!--gou/-->
    <div class="clears"></div>
   </div><!--ding-gou/-->
@@ -66,7 +80,18 @@
  </div><!--navBox/-->
  <div class="vipBox">
   <div class="vipLeft">
-   <h2 class="headImg"><img src="images/vipImg.jpg" width="183" height="169" /></h2>
+    <div>
+		照片: 
+			<c:choose>
+				<c:when test="${user.imgs != null}">
+					<img src="${contextPath}/vipAddress/${user.imgs}" 
+				  		 class="vipA">
+				</c:when>
+				<c:otherwise>
+					 <h2 class="headImg"><img src="${contextPath}/assets/images/vipImg.jpg" width="183" height="169" /></h2>
+				</c:otherwise>
+			</c:choose>
+	  </div>
    <h3 class="vipName">测试webqin</h3>
    <dl class="vipNav">
     <dt class="vip_1 vipCur">买家中心</dt>
@@ -84,23 +109,10 @@
    </dl><!--vipNav/-->
   </div><!--vipLeft/-->
   <div class="vipRight">
-   <h2 class="vipTitle">收货地址</h2>
+   <h2 class="vipTitle">收货地址   <span class="green add">[添加]</span></h2>
    
-   <div class="address">
-    <div class="addList">
-     <label><span class="red">* </span>选择地区:</label>
-     <select>
-      <option>请选择省</option>
-     </select>
-     <select>
-      <option>请选择市</option>
-     </select>
-     <select>
-      <option>请选择地区</option>
-     </select>
-    
-   <div class="address">
-   <form:form action="${contextPath}/vipAddress" method="post" class="address2">
+  <div class="address">
+   <form:form action="${contextPath}/adds" method="post" class="address2">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div class="addList">
      <label><span class="red">* </span>选择地区:</label>
@@ -123,7 +135,7 @@
     </div><!--addList-->
     <div class="addList">
      <label><span class="red">* </span>邮政编码:</label>
-     <input type="text" name="zipCode" value="${addres.zipCode}"/>
+     <input type="text" name="zipCode"  />
      
     </div><!--addList-->
     <div class="addList">
@@ -132,7 +144,7 @@
     </div><!--addList-->
     <div class="addList">
      <label><span class="red">* </span>手机号码:</label>
-     <input type="text" name="Phone"/>
+     <input type="text" name="phone"/>
     </div><!--addList--> 
     <div class="addList2">
      <input value="确 认 " type="submit" class="submit" />
@@ -154,7 +166,7 @@
      <td>${addres.area}</td>
      <td>${addres.address}</td>
      <td>${addres.zipCode}</td>
-     <td>${addres.Phone}</td>
+     <td>${addres.phone}</td>
      <td><span class="green upd" value="${addres.id}">[修改]</span> | <span class="green add">[添加]</span> </td>
     </tr>
     </c:forEach>
@@ -165,7 +177,7 @@
  <div class="footBox">
   <div class="footers">
    <div class="footersLeft">
-    <a href="index.html"><img src="images/ftlogo.jpg" width="240" height="64" /></a>
+    <a href="index.html"><img src="${contextPath}/assets/images/ftlogo.jpg" width="240" height="64" /></a>
     <h3 class="ftphone">400 000 0000 </h3>
     <div class="ftKe">
      客服 7x24小时(全年无休)<br />

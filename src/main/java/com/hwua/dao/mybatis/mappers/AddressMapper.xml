@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hwua.dao.mybatis.mappers.AddressMapper">
+ <insert id="addAddress">
+ insert into address(id,name,req_id,area,address,zip_code,phone)values(address_seq.nextval,#{name},#{reqId},#{area},#{address},#{zipCode},#{phone})
+ </insert>
+  <select id="findAll" resultType="com.hwua.entity.Address">
+	
+    SELECT * FROM address where req_id = #{id}
+  </select>
+  <select id="findIdOneAddres" resultType="com.hwua.entity.Address">
+	
+    SELECT * FROM address where id = #{id}
+  </select>
+<update id="updateAddress">
+
+update address
+set name= #{name},area=#{area},address=#{address},zip_code=#{zipCode},phone=#{phone}
+where id = #{id}
+</update>
+
+
+</mapper>

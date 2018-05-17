@@ -1,6 +1,7 @@
 package com.hwua.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,15 @@ public class User implements Serializable {
 	private String category;
 	private String imgs;
 	private MultipartFile picture;
+	private List<Address> address;
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
 
 	public MultipartFile getPicture() {
 		return picture;

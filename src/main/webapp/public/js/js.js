@@ -52,8 +52,36 @@ $(function(){
 		$(".zhifufangshi").eq(zhi).show().siblings(".zhifufangshi").hide();
 		})
 	//.upd,.add
-	$(".upd,.add,.vipUp").click(function(){
+	$(".upd,.add,.vipUp").click(function(){	
+			if(this.className=="green upd"){
+				// 获取meta中的csrf token
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				// 将token作为请求头发送
+				var headers = {};
+				headers[header] = token;
+	
+				$.ajax({
+					type:"POST",
+					headers: headers,
+					url:"/sfirst/add",
+					contentType:"application/json; charset=UTF-8",
+					data: JSON.stringify({id:$(this).attr("value")}),
+					dataType:"JSON",
+					success:function(dataStr){
+						$("input[name='address']").val(dataStr.address);
+						$("input[name='zipCode']").val(dataStr.zipCode);
+						$("input[name='name']").val(dataStr.name);
+						$("input[name='phone']").val(dataStr.phone);
+						$(".id").remove();
+						$(".address2").append("<input type='hidden' name='id' class='id' value='"+dataStr.id 
+
+	+"'/>");
+					}
+				});
+			}
 		$(".address").stop(true,true).slideDown();
+		
 		})
 	//luntan
 	$(".luntan").click(function(){
@@ -156,7 +184,3 @@ $(function(){
 		$(".buydlList").eq(bdy2Index).fadeIn().siblings(".buydlList").hide();
 		})
 	})
-	
-	
-	
-	

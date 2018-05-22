@@ -26,9 +26,38 @@ $(function() {
     });
 });
 
-
 $(function(){
-	//.regEq li
+	$(".jia").click(function(){
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		// 将token作为请求头发送
+		var headers = {};
+		headers[header] = token;
+		var id1 = $(this).attr("name");
+		$.ajax({
+			url:"/sfirst/addCarCount",
+			headers:headers,
+			type:"POST",
+			contentType:"application/json; charset=UTF-8",
+			data:JSON.stringify({id:id1}),
+			dataType:"JSON",
+			success:function(carStr){
+				$(".shuliang[name='"+id1+"']").val(carStr.shopCount);
+				$("strong.red[name='"+id1+"']")[0].innerHTML="￥"+(carStr.product.price * carStr.shopCount);
+				$("strong.red[name='all']")[0].innerHTML="￥"+(parseInt(($("strong.red[name='all']")[0].innerHTML).substr(1))+carStr.product.price);
+			}
+		});
+	});
+	
+	$(".jiaruCar").click(function(){
+		var productId = $(this).attr("name");
+		$.ajax({
+			url:"/sfirst/addCar",
+			type:"GET",
+			data:{id:productId}
+		});
+	});
+	// .regEq li
 	$(".regEq li:first").addClass("regEqSy");
 	$(".regForm:first").show();
 	$(".regDl:first").show();
@@ -38,12 +67,12 @@ $(function(){
 		$(".regForm").eq(regEq).fadeIn().siblings(".regForm").hide();
 		$(".regDl").eq(regEq).fadeIn().siblings(".regDl").hide();
 		})
-	//.proSelect li
+	// .proSelect li
 	$(".proSelect li:first").addClass("selStyle");
 	$(".proSelect li").click(function(){
 		$(this).addClass("selStyle").siblings("li").removeClass("selStyle");
 		})	
-	//选择支付方式 
+	// 选择支付方式
 	$(".zhiList li:first").addClass("zhistyle");
 	$(".zhifufangshi:first").show();
 	$(".zhiList li").click(function(){
@@ -51,7 +80,7 @@ $(function(){
 		var zhi=$(this).index();
 		$(".zhifufangshi").eq(zhi).show().siblings(".zhifufangshi").hide();
 		})
-	//.upd,.add
+	// .upd,.add
 	$(".upd,.add,.vipUp").click(function(){	
 			if(this.className=="green upd"){
 				// 获取meta中的csrf token
@@ -83,19 +112,19 @@ $(function(){
 		$(".address").stop(true,true).slideDown();
 		
 		})
-	//luntan
+	// luntan
 	$(".luntan").click(function(){
 		$(this).attr("href","#");
 		alert("功能暂未开放，敬请期待！！！！！！！")
 		})
-	//手机多样选择
-	//点击多选时
+	// 手机多样选择
+	// 点击多选时
 	$(".duoxuan").click(function(){
 		$(this).prev("ul").find("input").show();
 		$(this).addClass("danxuan");
 		$(this).next(".queen2").fadeIn();
 		})
-	//点击more
+	// 点击more
 	$(".more").click(function(){
 		$(this).hide();
 		$(this).next(".shou").show();
@@ -106,7 +135,7 @@ $(function(){
 		$(this).prev(".more").show();
 		$(this).parents(".proPosition").find("ul").addClass("moreHeight");
 		})	
-	//.xuan2 li
+	// .xuan2 li
 	$(".xuan2 li").hover(function(){
 		$(this).find(".chilXuan").show();
 		},function(){
@@ -117,55 +146,55 @@ $(function(){
 		$(this).addClass("danxuan");
 		$(this).next(".queen2").fadeIn();
 		})	
-	//.phoneBox d
+	// .phoneBox d
 	$(".phoneBox dl").hover(function(){
 		$(this).addClass("dlbor");
 		},function(){
 			$(this).removeClass("dlbor");
 			})
-	//.dingLeft dl
+	// .dingLeft dl
 	$(".dingLeft dl:first").addClass("dsy")
 	$(".dingLeft dl").click(function(){
 		$(this).addClass("dsy").siblings("dl").removeClass("dsy");
 		})
-	//.xingneng li
+	// .xingneng li
 	$(".xingneng li:first").addClass("xsy");
 	$(".xingneng li").click(function(){
 		$(this).addClass("xsy").siblings("li").removeClass("xsy");
 		})
-	//dingRight
+	// dingRight
 	$(".jisy li").click(function(){
 		$(this).addClass("lisy").siblings("li").removeClass("lisy");
 		})
-	//手机正面
+	// 手机正面
 	$(".drZheng li").click(function(){
 		var drzheng=$(this).index();
 		$(".zheng li").eq(drzheng).fadeIn().siblings("li").hide();
 		})	
-	//手机反面
+	// 手机反面
 	$(".drZhong li").click(function(){
 		var zhongs=$(this).index();
 		$(".zhengzheng li").eq(zhongs).fadeIn().siblings("li").hide();
 		})		
-	//手机中段
+	// 手机中段
 	$(".drZhong li").click(function(){
 		var drzheng=$(this).index();
 		$(".beiMid li").eq(drzheng).fadeIn().siblings("li").hide();
 		})	
-	//手机上下
+	// 手机上下
 	$(".drSx li").click(function(){
 		var drzheng=$(this).index();
 		$(".beiTop li").eq(drzheng).fadeIn().siblings("li").hide();
 		$(".beiDown li").eq(drzheng).fadeIn().siblings("li").hide();
 		})	
-	//shangchuan
+	// shangchuan
 	$(".shangchuan").click(function(){
 		$(".shangchuanBox,.bg100").fadeIn();
 		})	
 	$(".close,.bg100").click(function(){
 		$(".shangchuanBox,.bg100").fadeOut()
 		})
-	//.buyimgBig img
+	// .buyimgBig img
 	$(".buyimgBig img:first").fadeIn();
 	$(".buyimgsmall li:first").addClass("bsi");
 	$(".buyimgsmall li").click(function(){

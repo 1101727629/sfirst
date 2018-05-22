@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hwua.dao.mybatis.mappers.CarMapper">
+	<select id="findAll" resultMap="carDetails">
+		select c.id id,c.shop_count shop_count,
+		p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
+		from car c inner join product p on c.product_id = p.id
+		where c.user_id = #{id}
+	</select>
+	<select id="findOneCar" resultMap="carDetails">
+		select c.id id,c.shop_count shop_count,
+		p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
+		from
+		car c inner join product p on c.product_id = p.id
+		where
+		c.user_id=#{userId} and c.product_id = #{productId}
+	</select>
+	<insert id="createCar">
+		insert into car(id,product_id,user_id,shop_count)
+		values(car_seq.nextval,#{productId},#{userId},1)
+	</insert>
+	<update id="addIdCarCount">
+		update car set shop_count = shop_count+1
+		where id=#{id}
+	</update>
+	<select id="findIdOneCar" resultMap="carDetails">
+		select c.id id,c.shop_count shop_count,
+		p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
+		from car c inner join product p on c.product_id = p.id
+		where c.id=#{id}
+	</select>
+
+
+	<update id="addCarCount">
+		update car set shop_count = shop_count+1
+		where user_id=#{userId} and product_id = #{productId}
+	</update>
+	
+	<resultMap type="Car" id="carDetails">
+		<id property="id" column="id" />
+		<result property="shopCount" column="shop_count" />
+		<association property="product" javaType="Product">
+			<id property="id" column="p_id" />
+			<result property="title" column="p_title" />
+			<result property="img" column="p_img" />
+			<result property="price" column="p_price" />
+			<result property="introduce" column="p_introduce" />
+
+		</association>
+	</resultMap>
+</mapper>

@@ -66,6 +66,10 @@ public Address findIdOneAddres(Long id) {
 
 	return addressMapper.findIdOneAddres(id);
 }
+@Override
+public List<Product> findProduct() {
+	return  productMapper.findProduct();
+}
 
 
 }

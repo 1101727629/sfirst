@@ -24,6 +24,8 @@ void updateAddress(Address addres);
 
 Address findIdOneAddres(Long id);
 
+List<Product> findProduct();
+
 
 
 

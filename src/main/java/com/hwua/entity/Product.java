@@ -52,6 +52,11 @@ public void setIntroduce(String introduce) {
 public void setId(long id) {
 	this.id = id;
 }
+@Override
+public String toString() {
+	return "Product [id=" + id + ", title=" + title + ", img=" + img + ", price=" + price + ", phone_name=" + phone_name
+			+ ", introduce=" + introduce + ", picture=" + picture + "]";
+}
 
 
 }

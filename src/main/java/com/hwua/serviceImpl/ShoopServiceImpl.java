@@ -84,6 +84,13 @@ public class ShoopServiceImpl implements ShoopService {
 	}
 
 
+	@Override
+	public List<Product> findProduct() {
+		return shoopDao.findProduct();
+		 
+	}
+
+
 
 
 

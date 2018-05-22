@@ -7,4 +7,7 @@
  <insert id="add">
  insert into product(id,title,img,price,phone_name,introduce)values(product_seq.nextval,#{title},#{img},#{price},#{phone_name},#{introduce})
  </insert>
+  <select id="findProduct" resultType="Product">
+	select * from product 
+  </select>
 </mapper>

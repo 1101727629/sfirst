@@ -10,6 +10,14 @@ private Double price;
 private String phone_name;
 private String introduce;
 private MultipartFile picture;
+private Car car;
+
+public Car getCar() {
+	return car;
+}
+public void setCar(Car car) {
+	this.car = car;
+}
 public MultipartFile getPicture() {
 	return picture;
 }
@@ -55,8 +63,9 @@ public void setId(long id) {
 @Override
 public String toString() {
 	return "Product [id=" + id + ", title=" + title + ", img=" + img + ", price=" + price + ", phone_name=" + phone_name
-			+ ", introduce=" + introduce + ", picture=" + picture + "]";
+			+ ", introduce=" + introduce + ", picture=" + picture + ", car=" + car + "]";
 }
+
 
 
 }

@@ -18,4 +18,12 @@ public interface CarDao {
 
 	Car findIdOneCar(Long id);
 
+	void deleteCar(Long id);
+
+	void minusCount(Long id);
+
+	void deleteAllCar(long id);
+
+	
+
 }

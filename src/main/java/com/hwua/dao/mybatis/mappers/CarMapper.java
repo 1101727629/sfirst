@@ -18,5 +18,11 @@ public interface CarMapper {
 	void addIdCarCount(Long id);
 
 	Car findIdOneCar(Long id);
+	
+	void deleteCar(Long id);
+
+	void minusCount(@Param(value = "id") Long id);
+	void deleteAllCar(long id);
+
 
 }

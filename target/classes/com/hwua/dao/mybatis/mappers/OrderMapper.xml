@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hwua.dao.mybatis.mappers.OrderMapper">
+<select id="findAll" resultMap="orderDetails">
+select o.id or_id,o.staat or_staat,o.method or_method,o.entlassung or_entlassung,o.shop_count or_shop_count,
+a.id ad_id,a.name ad_name,a.area ad_area,a.address ad_address,a.zip_code ad_zipCode,
+a.phone ad_phone,p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
+from myorder o inner join address a on o.address_id= a.id 
+inner join product p on o.product_id = p.id  
+where o.user_id=#{userId}
+</select>
+<select id="findOne" resultMap="orderDetails">
+select o.id or_id,o.staat or_staat,o.method or_method,o.entlassung or_entlassung,o.shop_count or_shop_count,
+a.id ad_id,a.name ad_name,a.area ad_area,a.address ad_address,a.zip_code ad_zipCode,
+a.phone ad_phone,p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
+from myorder o inner join address a on o.address_id= a.id 
+inner join product p on o.product_id = p.id  
+where o.id=#{id}
+
+
+</select>
+	<insert id="addorder">
+	insert into myorder(id,shop_count,address_id,product_id,user_id)
+	values(myorder_seq.nextval,#{shopCount},#{addresId},#{productId},#{userId})
+	</insert>
+	<delete id="deletcar"> 
+		delete car where id=#{id}
+	</delete>
+
+	
+	<resultMap type="Order" id="orderDetails">
+	<id property="id" column="or_id" />
+	<result property="staat" column="or_staat" />
+	<result property="method" column="or_method" />
+	<result property="shopCount" column="or_shop_count" />
+	<result property="entlassung" column="or_entlassung" />
+  		<association property="address" javaType="Address">
+  			<id property="id" column="ad_id"></id>
+  			<result property="name" column="ad_name"/>
+  			<result property="area" column="ad_area"/>
+  			<result property="address" column="ad_address"/>
+  			<result property="zipCode" column="ad_zipCode"/>
+  			<result property="phone" column="ad_phone"/>
+  		</association>
+  		<collection property="products" ofType="Product">
+  			<id property="id" column="p_id"></id>
+  			<result property="title" column="p_title"/>
+  			<result property="img" column="p_img"/>
+  			<result property="price" column="p_price"/>
+  			<result property="phone_name" column="p_phone_name"/>
+  			<result property="introduce" column="p_introduce"/>
+  		</collection>
+  		
+	</resultMap>
+</mapper>

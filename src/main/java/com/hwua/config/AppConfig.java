@@ -62,7 +62,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		// GET    /assets/bootstrap/css/bootstrap.min.css
 		// 资源路径    /public/bootstrap/css/bootstrap.min.css
 		registry.addResourceHandler("/assets/**").addResourceLocations("/public/");
-		registry.addResourceHandler("/vip/**","/vipPwd/**","/vipAddress/**","/prolist/**","/car/**").addResourceLocations("file:///E:/img/");
+		registry.addResourceHandler("/vip/**","/vipPwd/**","/vipAddress/**","/prolist/**","/car/**","/order/**").addResourceLocations("file:///E:/img/");
 		registry.addResourceHandler("/vip/product/**").addResourceLocations("file:///E:/img/");
 	}
 	@Bean

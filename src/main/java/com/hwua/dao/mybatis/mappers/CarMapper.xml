@@ -11,7 +11,7 @@
 		where c.user_id = #{id}
 	</select>
 	<select id="findOneCar" resultMap="carDetails">
-		select c.id id,c.shop_count shop_count,
+		select c.id id,c.shop_count shop_count,c.product_id product_id,
 		p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
 		from
 		car c inner join product p on c.product_id = p.id
@@ -27,12 +27,22 @@
 		where id=#{id}
 	</update>
 	<select id="findIdOneCar" resultMap="carDetails">
-		select c.id id,c.shop_count shop_count,
+		select c.id id,c.shop_count shop_count,c.product_id product_id,
 		p.id p_id,p.title p_title,p.img p_img,p.price p_price,p.introduce p_introduce
 		from car c inner join product p on c.product_id = p.id
 		where c.id=#{id}
 	</select>
-
+    <delete id="deleteCar">
+		delete car where id=#{id}
+	</delete>
+	
+	<delete id="deleteAllCar">
+		delete car where user_id=#{id}
+	</delete>
+	<update id="minusCount">
+		update car set shop_count = shop_count - 1 
+		where id = #{id}
+	</update>
 
 	<update id="addCarCount">
 		update car set shop_count = shop_count+1
@@ -42,6 +52,7 @@
 	<resultMap type="Car" id="carDetails">
 		<id property="id" column="id" />
 		<result property="shopCount" column="shop_count" />
+		<result property="product_id" column="product_id" />
 		<association property="product" javaType="Product">
 			<id property="id" column="p_id" />
 			<result property="title" column="p_title" />

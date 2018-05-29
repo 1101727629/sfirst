@@ -3,7 +3,6 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
      <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
      <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
-     <c:set var="countMonry" value="0"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,9 +11,7 @@
 <link type="text/css" href="${contextPath}/assets/css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="${contextPath}/assets/js/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/assets/js/js.js"></script>
-<!-- 	把token放在meta中方便ajax获取 -->
-	<meta name="_csrf" content="${_csrf.token}"/>
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 </head>
 
 <body>
@@ -23,7 +20,7 @@
  <span><sec:authentication property="principal.user.username"/></span>
    <a href="reg.html">注册</a>
    <ul class="topNav">
-    <li><a href="order.html">我的订单 </a></li>
+    <li><a href="${contextPath}/order">我的订单 </a></li>
     <li class="gouwuche"><a href="car.html">购物车</a> <strong style="color:#C94E13;">3</strong></li>
     <li class="shoucangjia"><a href="shoucang.html">收藏夹</a></li>
     <li class="kefus"><a href="#">联系客服</a></li>
@@ -65,137 +62,68 @@
    <li><a href="index.html">首页</a></li>
    <li><a href="buy.html">买家</a></li>
    <li><a href="sell.html">卖家</a></li>
-   <li><a href="vip.html">会员中心</a></li>
+   <li class="navCur"><a href="vip.html">会员中心</a></li>
    <li><a href="xuanshang.html">悬赏榜</a></li>
    <li><a href="luntan.html" class="luntan">论坛</a></li>
-   <li class="navCur"><a href="help.html">帮助</a></li>
+   <li><a href="help.html">帮助</a></li>
    <div class="clears"></div>
   </ul><!--nav/-->
  </div><!--navBox/-->
- <form action="addorder" id="form1" method="post" >
-   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
- <div class="car">
-  <div class="cont">
-   <div class="carImg"><img src="${contextPath}/assets/images/car1.jpg" width="951" height="27" /></div>
-   <h4 class="orderTitle">收货地址</h4>
-    <div class="address">
-  <%--  <form:form action="${contextPath}/adds" method="post" class="address2">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <div class="addList">
-     <label><span class="red">* </span>选择地区:</label>
-     <select name="area">
-      <option >请选择省</option>
-      <option >湖南</option>
-     </select>
-     <select  name="area">
-      <option>请选择市</option>
-      <option>长沙</option>
-     </select>
-     <select name="area">
-      <option >请选择地区</option>
-      <option >开福</option>
-     </select>
-    </div><!--addList-->
-    <div class="addList">
-     <label><span class="red">* </span>详细地址:</label>
-     <input type="text" name="address"/>
-    </div><!--addList-->
-    <div class="addList">
-     <label><span class="red">* </span>邮政编码:</label>
-     <input type="text" name="zipCode"  />
+ <div class="vipBox">
+  <div class="vipLeft">
+   <h2 class="headImg"><img src="${contextPath}/assets/images/vipImg.jpg" width="183" height="169" /></h2>
+   <h3 class="vipName">测试webqin</h3>
+   <dl class="vipNav">
+    <dt class="vip_1 vipCur">买家中心</dt>
+     <dd class="ddCur"><a href="${contextPath}/vipOrder">我的订单</a></dd>
+     <dd><a href="vipShoucang.html">收藏关注</a></dd>
+    <dt class="vip_2">账户设置</dt>
+     <dd><a href="${contextPath}/vip">个人信息</a></dd>
+     <dd><a href="${contextPath}/vipPwd">密码修改</a></dd>
+     <dd><a href="${contextPath}/vipAddress">收货地址</a></dd>
+     <dd><a href="vipXiaofei.html">消费记录</a></dd>
+    <dt class="vip_3">客户服务</dt>
+     <dd><a href="vipQuxiao.html">取消订单/退货</a></dd>
      
-    </div><!--addList-->
-    <div class="addList">
-     <label><span class="red">* </span>收件人:</label>
-     <input type="text" name="name"/>
-    </div><!--addList-->
-    <div class="addList">
-     <label><span class="red">* </span>手机号码:</label>
-     <input type="text" name="phone"/>
-    </div><!--addList--> 
-    <div class="addList2">
-     <input value="确 认 " type="submit" class="submit" />
-    </div><!--addList2/-->
-    </form:form> --%>
-   </div><!--address/-->
-    
-   <table class="ord">
-  
-    <c:forEach items="${address}" var="addres">
-    <tr>
-     <td width="30%">
-      <input type="radio" name="addresId"  value="${addres.id}"/> ${addres.name}
-     </td>
-     <td width="50%">
-      ${addres.area},${addres.address},${addres.zipCode},${addres.phone}
-     </td>
-     <td>
-     <span class="green upd" value="${addres.id}">[修改]</span> | <span class="green add">[添加]</span> 
-     </td>
-    </tr>
-       </c:forEach> 
-   </table><!--ord/-->
-  
-   <table class="orderList">
-    <tr>
-     <th width="20"></th>
-     <th width="450">商品</th>
-     <th width="130">单价</th>
-     <th width="130">数量</th>
-     <th width="130">总金额</th>
-     <th width="105">操作</th>
-    </tr>
-    
-      <c:forEach items="${cars}" var="car">
-   <tr name="car">
-     <td><input type="checkbox"name="carIds" value="${car.id}" /></td>
-     <td colspan="5" style="text-align:left;color:#930; font-weight:bold;">
-      <img src="images/dianpu.gif" width="20" height="15" style="position:relative;top:2px;" />
-      店铺：unique VIP店铺 上海分店
-     </td>
-    </tr> 
-    <tr class="car${car.id}" name="car">
-     
-    	     <td><input type="checkbox" name="id" value="${car.id}"/></td>
-     <td>
-      <dl>
-       <dt><a href="proinfo.html"><img src="${contextPath}/car/${car.product.img}" width="85" height="85" /></a></dt>
-       <dd>${car.product.introduce}<br /><span class="red">有货：</span>从上海出发</dd>
-       <div class="clears"></div>
-      </dl>
-     </td>
-     <td><strong class="red">${car.product.price}</strong></td>
-     <td>
-     <div class="jia_jian">
-      <img src="${contextPath}/assets/images/jian.jpg" width="21" height="25" class="jian" name="${car.id}"/>
-      <input type="text" class="shuliang" value="${car.shopCount}"  name="${car.id}"/>
-      <img src="${contextPath}/assets/images/jia.jpg" width="21" height="25" class="jia" name="${car.id}" />
-     </div>
-     </td>
-     <td><strong class="red" name="${car.id}" >￥${car.product.price * car.shopCount}</strong></td>
-     <td><a href="#" class="green">收藏</a><br /><a href="" class="green" name="${car.id}">删除</a></td>
-    </tr>
-        <c:set var="countMonry" value="${countMonry + car.product.price * car.shopCount}"></c:set>
-      
-       
-      </c:forEach>
+     <dd><a href="vipTousu.html">我的投诉</a></dd>
+   </dl><!--vipNav/-->
+  </div><!--vipLeft/-->
+  <div class="vipRight">
+   <h2 class="vipTitle">我的订单</h2>
+   
+   <h2 class="oredrName">
+    我的订单 <span style="margin-left:40px;">待发货 <span class="red">10</span> </span>
+    <span>待收货 <span class="red">15</span></span>
+    </h2>
+    <table class="vipOrder">
+     <c:forEach items="${order}" var="orde">
       <tr>
-     <td colspan="6"><div class="shanchu"><img src="${contextPath}/assets/images/lajio.jpg" /> 全部删除</div></td>
-    </tr>
-   </table><!--orderList/-->
-   <div class="zongji">
-    <strong>所需运费：</strong>￥0.00 &nbsp;&nbsp;
-    <strong>总计(不含运费)：</strong><strong class="red" name="all">￥${countMonry}</strong>
-   </div><!--zongji/-->
-   <div class="jiesuan">
-    <a href="index.html" class="jie_1">继续购物&gt;&gt;</a>
-    <button type="button" class="jie_2">立即结算&gt;&gt;</button>
-    <div class="clears"></div>
-   </div><!--jiesuan/-->
-   <div class="clears"></div>
-  </div><!--cont/-->
- </div><!--car/-->
- </form>
+      
+       <c:forEach items="${orde.products}" var="aaa">
+       <td><a href="proinfo.html"> <img src="${contextPath}/order/${aaa.img}" width="60" height="55"/> </a></td>
+      <td>${orde.address.name}</td> 
+      <td>￥${aaa.price * orde.shopCount}<br />${orde.method}</td>
+      </c:forEach>
+      <td>${orde.entlassung}</td>
+      <td><a href="${contextPath}/success"><strong>${orde.staat}</strong></a></td>
+      <td><a href="${contextPath}/vipXiao/${orde.id}">查看</a></td> 
+     </tr>
+     </c:forEach>
+
+    
+     <tr>
+      <td><a href="proinfo.html"><img src="${contextPath}/assets/images/phone.png" width="60" height="55"></a></td>
+      <td>张益达</td>
+      <td>￥16.9<br />支付宝支付</td>
+      <td>2014年6月23日11:32:17</td>
+      <td><a href="success.html"><strong>等待付款</strong></a></td>
+      <td><a href="vipXiaofei.html">查看</a></td>
+     </tr>
+    
+    </table><!--vipOrder/-->
+  </div><!--vipRight/-->
+  <div class="clears"></div>
+ </div><!--vipBox/-->
  <div class="footBox">
   <div class="footers">
    <div class="footersLeft">

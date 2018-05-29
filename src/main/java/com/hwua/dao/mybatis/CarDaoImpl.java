@@ -52,6 +52,26 @@ private CarMapper carMapper;
 		 
 	}
 
+	@Override
+	public void deleteCar(Long id) {
+		carMapper.deleteCar(id);
+		
+	}
+
+	@Override
+	public void minusCount(Long id) {
+		carMapper.minusCount(id);
+		
+	}
+
+	@Override
+	public void deleteAllCar(long id) {
+		carMapper.deleteAllCar(id);
+		
+	}
+
+
+
 	
 
 }

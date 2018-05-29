@@ -39,7 +39,6 @@ public class ProlistController {
 	@RequestMapping(method=RequestMethod.POST,value="/addCarCount")
 	public @ResponseBody
 	Car addCarCount(@AuthenticationPrincipal(expression="user") User user,@RequestBody Car car){
-		System.err.println(car);
 		carService.addIdCarCount(car.getId());
 		return carService.findIdOneCar(car.getId());
 	}
@@ -50,27 +49,44 @@ public class ProlistController {
 	 		model.addAttribute("address", address);
 	 		List<Car> cars = carService.findAll(user.getId());
 	 		model.addAttribute("cars", cars);
-	 		System.err.println(cars);
 	 		return "car";
 	 	}
-	
-	
-	@RequestMapping(method=RequestMethod.GET,value="/addCar")
+	@RequestMapping(method=RequestMethod.GET,value="/minus")
 	public @ResponseBody
-	Car addCar(@AuthenticationPrincipal(expression="user") User user,@RequestParam Long id){
-	Car car = carService.findOneCar(user.getId(),id);
-	System.out.println(car);
+	Car minus(@AuthenticationPrincipal(expression="user") User user,@RequestParam Long id,@RequestParam Long shopCount){
+		if(shopCount<=1){
+			carService.deleteCar(id);
+		}else{
+			carService.minusCount(id);
+			}
+		return carService.findIdOneCar(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/addCar")
+	public @ResponseBody
+	Car addCar(@AuthenticationPrincipal(expression="user") User user,@RequestBody Product pro){
+	Car car = carService.findOneCar(user.getId(),pro.getId());
 	if(car==null){
-	carService.createCar(user.getId(),id);
+	carService.createCar(user.getId(),pro.getId());
 	}else{
-	carService.addCarCount(user.getId(),id);
+	carService.addCarCount(user.getId(),pro.getId());
 	}
 	return null;
+	}
+	@RequestMapping(method=RequestMethod.GET,value="/deleteCar")
+	public @ResponseBody Car deleteCar (@AuthenticationPrincipal(expression="user") User user,@RequestParam Long id){
+		carService.deleteCar(id);
+		return new Car();
+		
+	}
+	@RequestMapping(method=RequestMethod.GET,value="/deleteAllCar")
+	public String deleteAllCar (@AuthenticationPrincipal(expression="user") User user){
+		carService.deleteAllCar(user.getId());
+		return "car";
 	}
 	@RequestMapping(method=RequestMethod.GET,value="/addCar/{id}")
 	public String addCar1(@AuthenticationPrincipal(expression="user") User user,@PathVariable Long id){
 		Car car = carService.findOneCar(user.getId(),id);
-		System.out.println(car);
 		if(car==null){
 			carService.createCar(user.getId(),id);
 		}else{
@@ -78,4 +94,9 @@ public class ProlistController {
 		}
 		return "car";
 	}
+	
+	
+	
+	
+	
 }

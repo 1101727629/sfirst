@@ -27,13 +27,61 @@ $(function() {
 });
 
 $(function(){
-	$(".jia").click(function(){
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		// 将token作为请求头发送
-		var headers = {};
-		headers[header] = token;
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	// 将token作为请求头发送
+	var headers = {};
+	headers[header] = token;
+
+	
+	$(".shanchu").click(function(){
+		$.ajax({
+			url:"/sfirst/deleteAllCar",
+			type:"GET",
+			success:function(carStr){
+				$("tr[name='car']").remove();
+				$("strong.red[name='all']")[0].innerHTML="￥0.0";
+			}
+		});
+	});
+	
+	
+	$(".green").click(function(){
 		var id1 = $(this).attr("name");
+		$.ajax({
+			url:"/sfirst/deleteCar",
+			type:"GET",
+			data:{id:id1},
+			success:function(carStr){
+				$("car"+id1).remove();
+			}
+		});
+});
+	$(".jian").click(function(){
+		var id1 = $(this).attr("name");
+		$.ajax({
+			url:"/sfirst/minus",
+			type:"GET",
+			data:{id:id1,shopCount:$(".shuliang").val()},
+			success:function(carStr){
+				console.log($("strong.red[name='"+id1+"']")[0]);
+				if(carStr==null){
+					$("car"+id1).remove();
+				}else{
+					console.log($(".shuliang").val());
+									
+					$(".shuliang[name='"+id1+"']").val(carStr.shopCount);
+					$("strong.red[name='"+id1+"']")[0].innerHTML="￥"+(carStr.product.price * carStr.shopCount);
+					$("strong.red[name='all']")[0].innerHTML="￥"+(parseInt(($("strong.red[name='all']")[0].innerHTML).substr(1))-carStr.product.price);
+				}
+			},
+			
+		});
+	});
+	$(".jia").click(function(){
+		
+		var id1 = $(this).attr("name");
+		
 		$.ajax({
 			url:"/sfirst/addCarCount",
 			headers:headers,
@@ -49,12 +97,19 @@ $(function(){
 		});
 	});
 	
+
+	
 	$(".jiaruCar").click(function(){
 		var productId = $(this).attr("name");
 		$.ajax({
 			url:"/sfirst/addCar",
-			type:"GET",
-			data:{id:productId}
+			headers:headers,
+			type:"POST",
+			contentType:"application/json; charset=UTF-8",
+			data:JSON.stringify({id:productId}),
+			success:function(carStr){
+				alert("添加成功");
+		}
 		});
 	});
 	// .regEq li
@@ -211,5 +266,20 @@ $(function(){
 		$(this).addClass("bdy2").siblings("li").removeClass("bdy2");
 		var bdy2Index=$(this).index();
 		$(".buydlList").eq(bdy2Index).fadeIn().siblings(".buydlList").hide();
+		})
+		
+		$(".jie_2").click(function(){
+			var a = $("input[name=addresId]:checked");
+			var b = $("input[name=id]:checked");
+			if(b.length<1){
+				alert("请选择商品");
+			}else{
+				if(a.length<1){
+					alert("请选择地址");
+				}else{
+					$("#form1").submit();
+				}
+			}
+			
 		})
 	})

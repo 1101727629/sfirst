@@ -52,6 +52,26 @@ public class CarServiceImpl implements CarService{
 		return carDao.findIdOneCar(id);
 	}
 
+	@Override
+	public void deleteCar(Long id) {
+		carDao.deleteCar(id);
+		
+	}
+
+	@Override
+	public void minusCount(Long id) {
+		carDao.minusCount(id);
+		
+	}
+
+	@Override
+	public void deleteAllCar(long id) {
+	carDao.deleteAllCar(id);
+		
+	}
+
+
+
 	
 
 }
